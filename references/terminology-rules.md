@@ -109,7 +109,7 @@ python scripts/audit_features.py --source ./source.xlsx
 
 - 本机 Python 侧没有 `win32com` / `xlwings`，COM 只能走 PowerShell 的 `New-Object -ComObject Excel.Application`（实测 Excel 15.0，ProgID `Excel.Application`）。
 - Excel 有可见窗口在跑时，自动化调用会被 `RPC_E_CALL_REJECTED (0x80010001)` 直接拒绝，重试多次也过不去；`scripts/apply_bilingual_com.ps1` 因此在检测到可见窗口时以退出码 2 直接拒绝，要求先关掉 Excel。**失败运行留下的隐藏 `EXCEL.EXE` 孤儿会毒化 ROT**：`Get-Process EXCEL | Where MainWindowTitle -eq ''` 找到的就是它们，`Stop-Process` 清掉后同一份文件立刻能开。
-- COM 只改工作副本（先 `Copy-Item` 再 `Workbooks.Open`），失败时关闭而不保存，绢不半途写回源文件。
+- COM 只改工作副本（先 `Copy-Item` 再 `Workbooks.Open`），失败时关闭而不保存，绝不半途写回源文件。
 - 中文绝对路径经 PowerShell 传参会变成 mojibake（Excel 报"抱歉，无法找到 …xlsx"），一律用 ASCII 文件名副本。
 - 合并行无法 `AutoFit`，脚本按"原高×2（上限 409）"近似；非合并行才真 `AutoFit`。
 - 从开源实现借来的另外几条工程习惯，遇同类问题照用：批内一次请求/一次遍历、按语言对缓存避免重复翻译、按字符脚本判语种（zh/ja/ko/ru/ar/he/th/hi）、大簿按 N 格增量保存防丢、翻译前先备份、失败重试用指数退避且单格失败只影响单格。

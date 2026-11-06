@@ -11,7 +11,7 @@ Checks, per sheet:
 Exit code 0 = pass, 1 = problems found.
 
 Usage:
-  python verify_bilingual.py --source original.xlsx --out translated.xlsx [--sep "\\n"] [--allow-relink]
+  python verify_bilingual.py --source original.xlsx --out translated.xlsx [--sep "\n"] [--allow-relink]
 """
 
 import argparse

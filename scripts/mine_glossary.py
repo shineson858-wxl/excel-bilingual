@@ -20,7 +20,7 @@ from openpyxl import load_workbook
 
 CJK = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
 # Vietnamese / Latin diacritics that a Chinese line never carries
-LATIN_DIA = re.compile(r"[ăâđêôơưĂÂĐÊÔƠƯáàảãạắằẳẵặấầẩẫậéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợùủũụứừửữựýỳỷỹỵ]")
+LATIN_DIA = re.compile(r"[ăâđêôơưĂÂĐÊÔƠƯáàảãạắằẳẵặấầẩẫậéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]")
 
 
 def is_chinese_line(line):
